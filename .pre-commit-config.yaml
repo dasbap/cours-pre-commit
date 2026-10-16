@@ -19,5 +19,14 @@ repos:
       - id: detect-secrets
         args: ["--baseline", ".secrets.baseline"]
 
+  - repo: local
+    hooks:
+      - id: pytest
+        name: Tests unitaires
+        entry: python -m pytest -q
+        language: system
+        pass_filenames: false
+        always_run: true
+
 default_language_version:
   python: python3
