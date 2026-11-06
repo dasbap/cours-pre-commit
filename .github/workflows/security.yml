@@ -19,4 +19,12 @@ jobs:
       - name: Installer les dépendances
         run: python -m pip install -r requirements-dev.txt
       - name: Vérifier tous les fichiers
-        run: python -m pre_commit run --all-files
+        run: |
+          mkdir -p preuves
+          set -o pipefail
+          python -m pre_commit run --all-files | tee preuves/controles-ci.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: preuves-precommit
+          path: preuves/
